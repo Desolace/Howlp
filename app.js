@@ -1,7 +1,7 @@
 //Adapted from https://github.com/olalonde/node-yelp
 
 // Request API access: http://www.yelp.com/developers/getting_started/api_access
-var Yelp = require('yelp');
+var Yelp = require("yelp");
 var http = require("http");
 var express = require("express");
 var app = express();
@@ -20,13 +20,15 @@ var yelp = new Yelp({
 
 // See http://www.yelp.com/developers/documentation/v2/search_api
 var returnedData;
-app.set('json callback name', 'cb');
+app.set("json callback name", "cb");
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.get('*', function (req, res, next){
+
+app.get("*", function (req, res, next){
   console.log(req.url);
   var incData = req.url.split(",");
   console.log(incData);
@@ -38,9 +40,7 @@ app.get('*', function (req, res, next){
   yelp.search({ term: inx1, location: inx3, offset: inx5 })
   .then(function (data) {
     res.jsonp(data);
-    //returnedData = data;
     console.log("Success!____________________");
-    //console.log(returnedData)
   })
   .catch(function (err) {
     console.error(err);
